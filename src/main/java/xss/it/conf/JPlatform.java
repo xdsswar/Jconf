@@ -32,30 +32,7 @@ public final class JPlatform {
         return _OS.toLowerCase().contains("linux");
     }
 
-    /**
-     * Check if unix
-     * @return boolean
-     */
-    public static boolean isUnix() {
-        return _OS.toLowerCase().contains("nix") || _OS.toLowerCase().contains("nux");
-    }
 
-
-    /**
-     * Check if Solaris
-     * @return boolean
-     */
-    public static boolean isSolaris() {
-        return _OS.toLowerCase().contains("sunos") || _OS.toLowerCase().contains("solaris");
-    }
-
-    /**
-     * Check if it's freeBSD
-     * @return boolean
-     */
-    public static boolean isFreeBSD() {
-        return _OS.toLowerCase().contains("freebsd");
-    }
 
     /**
      * Check if teh system is 32 bits
@@ -74,7 +51,6 @@ public final class JPlatform {
     }
 
 
-
     /**
      * Get current OS
      * @return OS
@@ -89,16 +65,6 @@ public final class JPlatform {
         else if (isLinux()) {
             return OS.LINUX;
         }
-        else if (isSolaris()) {
-            return OS.SOLARIS;
-        }
-        else if (isUnix()){
-            return OS.UNIX;
-        }
-        else if (isFreeBSD()){
-            return OS.FREE_BSD;
-        }
-        else
         {
             return OS.UNKNOWN;
         }
@@ -116,7 +82,5 @@ public final class JPlatform {
         FREE_BSD,
         UNKNOWN
     }
-
-
 
 }

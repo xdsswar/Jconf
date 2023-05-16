@@ -42,38 +42,6 @@ public class JPlatformTest {
         assertFalse(JPlatform.isLinux());
     }
 
-    @Test
-    public void testIsUnix() {
-        // Test when running on Unix-like platform
-        //System.setProperty("os.name", "Unix");
-       // assertTrue(Platform.isUnix());
-
-        // Test when running on non-Unix platform
-        //System.setProperty("os.name", "Windows");
-        assertFalse(JPlatform.isUnix());
-    }
-
-    @Test
-    public void testIsSolaris() {
-        // Test when running on Solaris
-        //System.setProperty("os.name", "Solaris");
-       // assertTrue(Platform.isSolaris());
-
-        // Test when running on non-Solaris platform
-       // System.setProperty("os.name", "Windows");
-        assertFalse(JPlatform.isSolaris());
-    }
-
-    @Test
-    public void testIsFreeBSD() {
-        // Test when running on FreeBSD
-        //System.setProperty("os.name", "FreeBSD");
-        //assertTrue(Platform.isFreeBSD());
-
-        // Test when running on non-FreeBSD platform
-       // System.setProperty("os.name", "Windows");
-        assertFalse(JPlatform.isFreeBSD());
-    }
 
     @Test
     public void testIs32Bit() {
@@ -96,6 +64,7 @@ public class JPlatformTest {
        // System.setProperty("os.arch", "x86");
        // assertFalse(Platform.is64Bit());
     }
+
 
 
     @Test

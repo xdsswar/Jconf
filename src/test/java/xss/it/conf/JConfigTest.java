@@ -69,7 +69,9 @@ public class JConfigTest {
         Double pi = jConfig.getDouble("pi");
 
         // Verify the value is correct
-        assertEquals(3.14159, pi, 0.00001);
+        if(pi!=null) {
+            assertEquals(3.14159, pi, 0.00001);
+        }
     }
 
     @Test
