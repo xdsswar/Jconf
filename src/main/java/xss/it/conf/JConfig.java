@@ -1,5 +1,7 @@
 package xss.it.conf;
 
+import org.jetbrains.annotations.Nullable;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
@@ -28,10 +30,10 @@ public final class JConfig {
      * @param filePath String path to store or load the settings
      * @param secretKey String secret key
      */
-    public JConfig(String filePath, String secretKey) {
+    public JConfig(String filePath, @Nullable String secretKey) {
         this.properties = new Properties();
         this.filePath = filePath;
-        this.secretKey = padSecretKey(secretKey);
+        this.secretKey = (secretKey==null || secretKey.isEmpty() || secretKey.isBlank()) ? null : padSecretKey(secretKey);
 
         /*
          * Load the file if exist
@@ -104,10 +106,12 @@ public final class JConfig {
      * @param value String value
      */
     public void setEncrypted(String key, String value) {
+        if (secretKey==null){
+            throw new NullSecretKeyException();
+        }
         String encryptedKey = encrypt(key);
         String encryptedValue = encrypt(value);
-        properties.setProperty(encryptedKey, encryptedValue);
-        saveToFile();
+        set(encryptedKey, encryptedValue);
     }
 
     /**
@@ -161,8 +165,11 @@ public final class JConfig {
      * @return String value
      */
     public String getDecrypted(String key) {
+        if (secretKey==null){
+            throw new NullSecretKeyException();
+        }
         String encryptedKey = encrypt(key);
-        String encryptedValue = properties.getProperty(encryptedKey);
+        String encryptedValue = get(encryptedKey);
         if (encryptedValue != null) {
             return decrypt(encryptedValue);
         }
