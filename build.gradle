@@ -18,3 +18,15 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+jar{
+    archiveBaseName='jconf'
+    manifest {
+        attributes(
+                'name' : 'jconf',
+                'version': version,
+                'description': 'Utility to manage the Application properties',
+                'author': 'Xtreme Software Solutions (XSS&IT)'
+        )
+    }
+}
