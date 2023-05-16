@@ -111,38 +111,38 @@ public final class JConfig {
     }
 
     /**
-     * Set or update key to Integer value
+     * Set or update key to int value
      * @param key String key
-     * @param value Integer value
+     * @param value int value
      */
-    public void setInteger(String key, Integer value) {
+    public void setInteger(String key, int value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Set or update key to Double value
+     * Set or update key to double value
      * @param key String key
      * @param value String value
      */
-    public void setDouble(String key, Double value) {
+    public void setDouble(String key, double value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Set or update key to Long value
+     * Set or update key to long value
      * @param key String key
      * @param value String value
      */
-    public void setLong(String key, Long value) {
+    public void setLong(String key, long value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Set or update key to Boolean value
+     * Set or update key to boolean value
      * @param key String key
      * @param value String value
      */
-    public void setBoolean(String key, Boolean value) {
+    public void setBoolean(String key, boolean value) {
         set(key, String.valueOf(value));
     }
 
@@ -174,14 +174,14 @@ public final class JConfig {
      * @param key Key
      * @return Integer
      */
-    public Integer getInteger(String key) {
+    public int getInteger(String key) {
         String value = get(key);
         if (value != null) {
             try{
                 return Integer.parseInt(value);
             }catch (Exception ignored){}
         }
-        return null;
+        return 0;
     }
 
     /**
@@ -189,14 +189,14 @@ public final class JConfig {
      * @param key Key
      * @return Double
      */
-    public Double getDouble(String key) {
+    public double getDouble(String key) {
         String value = get(key);
         if (value != null) {
             try{
                 return Double.parseDouble(value);
             }catch (Exception ignored){}
         }
-        return null;
+        return 0d;
     }
 
     /**
@@ -204,14 +204,14 @@ public final class JConfig {
      * @param key Key
      * @return Long
      */
-    public Long getLong(String key) {
+    public long getLong(String key) {
         String value = get(key);
         if (value != null) {
             try{
                 return Long.parseLong(value);
             }catch (Exception ignored){}
         }
-        return null;
+        return 0L;
     }
 
     /**

@@ -1,6 +1,10 @@
 package xss.it.conf;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -82,5 +86,52 @@ public class JPlatformTest {
         // Test unknown operating system
         System.setProperty("os.name", "UnknownOS");
         assertNotEquals(JPlatform.OS.UNKNOWN, JPlatform.getOS());
+    }
+
+
+
+    @Test
+    public void testGetDocumentsDir() {
+        String documentsDir = JPlatform.getDocumentsDir();
+        Assertions.assertNotNull(documentsDir);
+        System.out.println("Documents Directory: " + documentsDir);
+    }
+
+    @Test
+    public void testGetDirSeparator() {
+        String dirSeparator = JPlatform.getDirSeparator();
+        Assertions.assertNotNull(dirSeparator);
+        System.out.println("Directory Separator: " + dirSeparator);
+    }
+
+
+    @Test
+    public void testGetUserDir() {
+        String userDir = JPlatform.getUserDir();
+        Assertions.assertNotNull(userDir);
+        System.out.println("User Directory: " + userDir);
+    }
+
+
+    @Test
+    public void testCreateDirs() {
+        String baseDirPath = JPlatform.getDocumentsDir();
+        String[] dirNames = {"dir1", "dir2", "dir3"};
+
+        boolean success = JPlatform.createDirs(baseDirPath, dirNames);
+        Assertions.assertTrue(success);
+
+        // Verify that directories are created
+        for (String dirName : dirNames) {
+            File dir = new File(baseDirPath, dirName);
+            Assertions.assertTrue(dir.exists());
+        }
+
+        // Clean up: Delete the created directories
+        //Comment all this if you  want to see the created dirs inside the Documents folder
+        for (String dirName : dirNames) {
+            File dir = new File(baseDirPath, dirName);
+            Assertions.assertTrue(dir.delete());
+        }
     }
 }

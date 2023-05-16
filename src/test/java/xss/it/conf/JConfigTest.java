@@ -54,7 +54,7 @@ public class JConfigTest {
         jConfig.setInteger("count", 10);
 
         // Get the integer property value
-        Integer count = jConfig.getInteger("count");
+        int count = jConfig.getInteger("count");
 
         // Verify the value is correct
         assertEquals(10, count);
@@ -66,12 +66,10 @@ public class JConfigTest {
         jConfig.setDouble("pi", 3.14159);
 
         // Get the double property value
-        Double pi = jConfig.getDouble("pi");
+        double pi = jConfig.getDouble("pi");
 
         // Verify the value is correct
-        if(pi!=null) {
-            assertEquals(3.14159, pi, 0.00001);
-        }
+        assertEquals(3.14159, pi, 0.00001);
     }
 
     @Test
@@ -80,7 +78,7 @@ public class JConfigTest {
         jConfig.setLong("timestamp", 1625698800000L);
 
         // Get the long property value
-        Long timestamp = jConfig.getLong("timestamp");
+        long timestamp = jConfig.getLong("timestamp");
 
         // Verify the value is correct
         assertEquals(1625698800000L, timestamp);
@@ -92,7 +90,7 @@ public class JConfigTest {
         jConfig.setBoolean("active", true);
 
         // Get the boolean property value
-        Boolean active = jConfig.getBoolean("active");
+        boolean active = jConfig.getBoolean("active");
 
         // Verify the value is correct
         assertTrue(active);
