@@ -85,6 +85,25 @@ public class JConfigTest {
     }
 
     @Test
+    public void testSetAndGetFloat() {
+        // Set a float value
+        jConfig.setFloat("floatKey", 3.14f);
+
+        // Retrieve the value and check if it matches the expected value
+        float actualValue = jConfig.getFloat("floatKey");
+        float expectedValue = 3.14f;
+        assertEquals(expectedValue, actualValue);
+
+        // Set a string value
+        jConfig.set("floatKey", "2.718");
+
+        // Retrieve the value as float and check if it matches the expected value
+        actualValue = jConfig.getFloat("floatKey");
+        expectedValue = 2.718f;
+        assertEquals(expectedValue, actualValue);
+    }
+
+    @Test
     public void testSetAndGetBoolean() {
         // Set a boolean property
         jConfig.setBoolean("active", true);

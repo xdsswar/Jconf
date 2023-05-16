@@ -13,12 +13,8 @@ import java.util.Properties;
 /**
  * @author XDSSWAR
  * Created on 05/15/2023
- * Utility class to manage Application settings. *
- * Be aware that trying to get and encrypted value with the get method or trying to get a non-encrypted value
- * with the getDecrypted method will return null or may give an Exception, be suer to use the appropiate method.
- * NOTE:
- * ONLY Strings DATA TYPES ARE RECOMMENDED TO BE ENCRYPTED IF SENSITIVE INFORMATION, DO NOT USE THE
- * ENCRYPTION/DECRYPTION METHODS WITH OTHER DATA TYPES LIKE Numbers AND Booleans.
+ * JConfig is a utility class that provides functionality for managing application settings using Properties.
+ * It supports saving and loading settings to/from a file, as well as encryption and decryption of sensitive data.
  */
 public final class JConfig {
     private final Properties properties;
@@ -26,9 +22,10 @@ public final class JConfig {
     private final String secretKey;
 
     /**
-     * Constructor
-     * @param filePath String path to store or load the settings
-     * @param secretKey String secret key
+     * Constructor for the JConfig class.
+     *
+     * @param filePath   the path to store or load the settings
+     * @param secretKey  the secret key used for encryption (can be null or empty)
      */
     public JConfig(String filePath, @Nullable String secretKey) {
         this.properties = new Properties();
@@ -44,39 +41,41 @@ public final class JConfig {
     }
 
     /**
-     * Get the Properties
-     * @return String
+     * Get the properties object.
+     *
+     * @return the properties object containing the settings
      */
     public Properties getProperties() {
         return properties;
     }
 
     /**
-     * Get the properties location
-     * @return String
+     * Get the file path where the settings are stored or loaded.
+     *
+     * @return the file path as a string
      */
     public String getFilePath() {
         return filePath;
     }
 
     /**
-     * Get the secret key
-     * @return String
+     * Get the secret key used for encryption.
+     *
+     * @return the secret key as a string
      */
     public String getSecretKey() {
         return secretKey;
     }
 
     /**
-     * Create properties from InputStream
-     * @param stream InputStream
-     * @param refresh boolean refresh, if true the properties will be cleared and restored from the stream, if false
-     * just the missing keys will be added with their respective values
-     * @throws IOException err
+     * Copy properties from an InputStream representing a resource file into the current Properties object.
+     *
+     * @param stream the InputStream representing the resource file to copy from
+     * @param refresh flag indicating whether to refresh the existing properties or only add missing ones
+     * @throws IOException if an I/O error occurs while reading the resource file or saving the properties to file
      */
-    public void fromResource(InputStream stream, boolean refresh) throws IOException {
-        Properties others = new Properties();
-        others.load(stream);
+    public void copyFromResource(InputStream stream, boolean refresh) throws IOException {
+        Properties others = readFromResources(stream);
         if (refresh){
             properties.clear();
             properties.putAll(others);
@@ -91,9 +90,23 @@ public final class JConfig {
     }
 
     /**
-     * Set or update key to String value
-     * @param key String key
-     * @param value String value
+     * Read properties from an InputStream representing a resource file.
+     *
+     * @param stream the InputStream representing the resource file to read from
+     * @return a Properties object containing the properties read from the resource file
+     * @throws IOException if an I/O error occurs while reading the resource file
+     */
+    public Properties readFromResources(InputStream stream) throws IOException {
+        Properties copy = new Properties();
+        copy.load(stream);
+        return copy;
+    }
+
+    /**
+     * Set or update the value of a property.
+     *
+     * @param key   the key of the property
+     * @param value the value to be set
      */
     public void set(String key, String value){
         properties.setProperty(key, value);
@@ -101,9 +114,11 @@ public final class JConfig {
     }
 
     /**
-     * Set and Encrypt the key and value
-     * @param key Sting  key
-     * @param value String value
+     * Set or update the value of a property with encryption.
+     *
+     * @param key   the key of the property
+     * @param value the value to be set
+     * @throws NullSecretKeyException if the secret key is null
      */
     public void setEncrypted(String key, String value) {
         if (secretKey==null){
@@ -115,54 +130,71 @@ public final class JConfig {
     }
 
     /**
-     * Set or update key to int value
-     * @param key String key
-     * @param value int value
+     * Set or update the value of a property as an integer.
+     *
+     * @param key   the key of the property
+     * @param value the integer value to be set
      */
     public void setInteger(String key, int value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Set or update key to double value
-     * @param key String key
-     * @param value String value
+     * Set or update the value of a property as a double.
+     *
+     * @param key   the key of the property
+     * @param value the double value to be set
      */
     public void setDouble(String key, double value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Set or update key to long value
-     * @param key String key
-     * @param value String value
+     * Set or update the value of a property as a long.
+     *
+     * @param key   the key of the property
+     * @param value the long value to be set
      */
     public void setLong(String key, long value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Set or update key to boolean value
-     * @param key String key
-     * @param value String value
+     * Set or update the value of a key as a float.
+     *
+     * @param key   the key of the property
+     * @param value the value to be set as a float
+     */
+    public void setFloat(String key, float value){
+        set(key, String.valueOf(value));
+    }
+
+    /**
+     * Set or update the value of a property as a boolean.
+     *
+     * @param key   the key of the property
+     * @param value the boolean value to be set
      */
     public void setBoolean(String key, boolean value) {
         set(key, String.valueOf(value));
     }
 
     /**
-     * Get String value
-     * @param key String key
-     * @return String value
+     * Get the value of a property as a string.
+     *
+     * @param key the key of the property
+     * @return the value of the property as a string, or null if the property does not exist
      */
     public String get(String key){
         return properties.getProperty(key);
     }
 
     /**
-     * Get and decrypt a String value
-     * @param key String key
-     * @return String value
+     * Get the decrypted value of a property.
+     *
+     * @param key the key of the property
+     * @return the decrypted value of the property as a string, or null if the property does not exist or secret key is null
+     * @throws NullSecretKeyException if the secret key is null
      */
     public String getDecrypted(String key) {
         if (secretKey==null){
@@ -177,9 +209,10 @@ public final class JConfig {
     }
 
     /**
-     * Get Integer value
-     * @param key Key
-     * @return Integer
+     * Get the value of a property as an integer.
+     *
+     * @param key the key of the property
+     * @return the value of the property as an integer, or -1 if the property does not exist or cannot be parsed as an integer
      */
     public int getInteger(String key) {
         String value = get(key);
@@ -188,13 +221,14 @@ public final class JConfig {
                 return Integer.parseInt(value);
             }catch (Exception ignored){}
         }
-        return 0;
+        return -1;
     }
 
     /**
-     * Get Double value
-     * @param key Key
-     * @return Double
+     * Get the value of a property as a double.
+     *
+     * @param key the key of the property
+     * @return the value of the property as a double, or -1.0 if the property does not exist or cannot be parsed as a double
      */
     public double getDouble(String key) {
         String value = get(key);
@@ -203,13 +237,14 @@ public final class JConfig {
                 return Double.parseDouble(value);
             }catch (Exception ignored){}
         }
-        return 0d;
+        return -1d;
     }
 
     /**
-     * Get Long value
-     * @param key Key
-     * @return Long
+     * Get the value of a property as a long.
+     *
+     * @param key the key of the property
+     * @return the value of the property as a long, or -1L if the property does not exist or cannot be parsed as a long
      */
     public long getLong(String key) {
         String value = get(key);
@@ -218,13 +253,33 @@ public final class JConfig {
                 return Long.parseLong(value);
             }catch (Exception ignored){}
         }
-        return 0L;
+        return -1L;
     }
 
+
     /**
-     * Get Boolean value
-     * @param key Key
-     * @return Boolean
+     * Get the value of a property as a float.
+     *
+     * @param key the key of the property
+     * @return the value of the property as a float, or -1.0 if the property does not exist or cannot be parsed as a float
+     */
+    public float getFloat(String key){
+        String value = get(key);
+        if (value != null) {
+            try{
+                return Float.parseFloat(value);
+            }catch (Exception ignored){}
+        }
+        return -1F;
+    }
+
+
+
+    /**
+     * Get the value of a property as a boolean.
+     *
+     * @param key the key of the property
+     * @return the value of the property as a boolean, or false if the property does not exist or cannot be parsed as a boolean
      */
     public Boolean getBoolean(String key) {
         String value = get(key);
@@ -237,7 +292,9 @@ public final class JConfig {
     }
 
     /**
-     * Save settings to file
+     * Saves the properties to a file.
+     * The properties are stored in the specified file path with a comment.
+     * If an IOException occurs during the file saving process, the exception is printed.
      */
     void saveToFile() {
         try (OutputStream outputStream = new FileOutputStream(filePath)) {
@@ -248,7 +305,9 @@ public final class JConfig {
     }
 
     /**
-     * Load Settings from file
+     * Loads the properties from a file.
+     * The properties are read from the specified file path.
+     * If an IOException occurs during the file loading process, the exception is printed.
      */
     void loadFromFile() {
         try (InputStream inputStream = new FileInputStream(filePath)) {
@@ -259,9 +318,13 @@ public final class JConfig {
     }
 
     /**
-     * Encrypt the given value, then perform base64
-     * @param value String
-     * @return String encrypted
+     * Encrypts the given value using AES encryption with a secret key.
+     * The value is converted to bytes, encrypted using AES/ECB/PKCS5Padding algorithm,
+     * and then encoded in Base64 for secure representation.
+     * If an exception occurs during the encryption process, the exception is printed and null is returned.
+     *
+     * @param value The value to be encrypted
+     * @return The encrypted value in Base64 format, or null if encryption fails
      */
     private String encrypt(String value) {
         try {
@@ -278,9 +341,15 @@ public final class JConfig {
     }
 
     /**
-     * Base64 decode the given value , then decrypt
-     * @param encryptedValue String hash
-     * @return String
+     * Decrypts the given encrypted value using AES decryption with a secret key.
+     * The encrypted value is expected to be in Base64 format.
+     * The decrypted value is obtained by decoding the Base64 string,
+     * applying AES/ECB/PKCS5Padding decryption algorithm, and converting the decrypted bytes to a string.
+     * If an exception occurs during the decryption process, the exception message is printed,
+     * and null is returned.
+     *
+     * @param encryptedValue The encrypted value in Base64 format
+     * @return The decrypted value as a string, or null if decryption fails
      */
     private String decrypt(String encryptedValue) {
         try {
@@ -297,9 +366,13 @@ public final class JConfig {
     }
 
     /**
-     * Fix the key for 16 bits
-     * @param secretKey String
-     * @return String
+     * Pads the secret key with "X" characters to ensure it has a length of 16 bytes.
+     * If the secret key length is less than 16, the method appends "X" characters
+     * to the key until it reaches a length of 16.
+     * If the secret key length is already 16 or greater, the method returns the first 16 characters of the key.
+     *
+     * @param secretKey The secret key to pad
+     * @return The padded secret key with a length of 16 bytes
      */
     private String padSecretKey(String secretKey) {
         int keyLength = secretKey.length();
@@ -312,8 +385,9 @@ public final class JConfig {
 
 
     /**
-     * Check if the settings file exist
-     * @return boolean
+     * Checks if the settings file exists at the specified file path.
+     *
+     * @return {@code true} if the settings file exists, {@code false} otherwise
      */
     boolean exist(){
         return Files.exists(Paths.get(filePath));

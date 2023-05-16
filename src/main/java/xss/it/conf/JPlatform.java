@@ -6,6 +6,7 @@ import java.io.File;
 /**
  * @author XDSSWAR
  * Created on 05/15/2023
+ * Utility class for platform-specific operations and information.
  */
 public final class JPlatform {
     private static final String _OS = System.getProperty("os.name").toLowerCase();
@@ -14,8 +15,9 @@ public final class JPlatform {
     private static final String _USER_DIR = System.getProperty("user.home");
 
     /**
-     * Check if Windows
-     * @return boolean
+     * Checks if the current operating system is Windows.
+     *
+     * @return {@code true} if the current operating system is Windows, {@code false} otherwise.
      */
     public static boolean isWindows() {
         return _OS.toLowerCase().contains("windows");
@@ -23,15 +25,19 @@ public final class JPlatform {
 
 
     /**
-     * Check if Mac OSX
-     * @return boolean
+     * Checks if the current operating system is Mac.
+     *
+     * @return {@code true} if the current operating system is Mac, {@code false} otherwise.
      */
     public static boolean isMac() {
         return _OS.toLowerCase().contains("mac");
     }
+
+
     /**
-     * Check if Linux
-     * @return boolean
+     * Checks if the current operating system is Linux.
+     *
+     * @return {@code true} if the current operating system is Linux, {@code false} otherwise.
      */
     public static boolean isLinux() {
         return _OS.toLowerCase().contains("linux");
@@ -39,24 +45,29 @@ public final class JPlatform {
 
 
     /**
-     * Check if teh system is 32 bits
-     * @return boolean
+     * Checks if the current operating system is 32-bit.
+     *
+     * @return {@code true} if the current operating system is 32-bit, {@code false} otherwise.
      */
     public static boolean is32Bit() {
         return _ARCH.contains("86") || _ARCH.contains("32");
     }
 
+
     /**
-     * Check if System is 64 bits
-     * @return boolean
+     * Checks if the current operating system is 64-bit.
+     *
+     * @return {@code true} if the current operating system is 64-bit, {@code false} otherwise.
      */
     public static boolean is64Bit() {
         return _ARCH.contains("64");
     }
 
+
     /**
-     * Get the current OS Documents path
-     * @return String
+     * Retrieves the path of the Documents directory for the current user.
+     *
+     * @return The path of the Documents directory.
      */
     public static String getDocumentsDir(){
         return FileSystemView.getFileSystemView().getDefaultDirectory().getPath()+_DIR_SEPARATOR;
@@ -90,17 +101,20 @@ public final class JPlatform {
         return true;
     }
 
+
     /**
-     * Get the OS dir separator
-     * @return String
+     * Retrieves the directory separator for the current operating system.
+     *
+     * @return The directory separator string.
      */
     public static String getDirSeparator(){
         return _DIR_SEPARATOR;
     }
 
     /**
-     * Get the current user dir path
-     * @return String
+     * Retrieves the path of the user's home directory.
+     *
+     * @return The path of the user's home directory.
      */
     public static String getUserDir(){
         return _USER_DIR+_DIR_SEPARATOR;
@@ -108,8 +122,9 @@ public final class JPlatform {
 
 
     /**
-     * Get current OS
-     * @return OS
+     * Retrieves the current operating system.
+     *
+     * @return The current operating system.
      */
     public static OS getOS(){
         if (isWindows()) {
@@ -127,7 +142,7 @@ public final class JPlatform {
     }
 
     /**
-     * Enum OS
+     * Represents different operating systems.
      */
     public enum OS{
         WINDOWS,
