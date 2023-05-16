@@ -72,7 +72,7 @@ public final class JConfig {
      * just the missing keys will be added with their respective values
      * @throws IOException err
      */
-    public void fromFile(InputStream stream, boolean refresh) throws IOException {
+    public void fromResource(InputStream stream, boolean refresh) throws IOException {
         Properties others = new Properties();
         others.load(stream);
         if (refresh){
