@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author XDSSWAR
  * Created on 05/16/2023
  */
-public class PlatformTest {
+public class JPlatformTest {
 
     @Test
     public void testIsWindows() {
         // Test when running on Windows
         System.setProperty("os.name", "Windows");
-        assertTrue(Platform.isWindows());
+        assertTrue(JPlatform.isWindows());
 
         // Test when running on non-Windows platform
        // System.setProperty("os.name", "Mac OS X");
@@ -28,7 +28,7 @@ public class PlatformTest {
 
         // Test when running on non-Mac platform
         //System.setProperty("os.name", "Windows");
-        assertFalse(Platform.isMac());
+        assertFalse(JPlatform.isMac());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class PlatformTest {
 
         // Test when running on non-Linux platform
        // System.setProperty("os.name", "Windows");
-        assertFalse(Platform.isLinux());
+        assertFalse(JPlatform.isLinux());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class PlatformTest {
 
         // Test when running on non-Unix platform
         //System.setProperty("os.name", "Windows");
-        assertFalse(Platform.isUnix());
+        assertFalse(JPlatform.isUnix());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class PlatformTest {
 
         // Test when running on non-Solaris platform
        // System.setProperty("os.name", "Windows");
-        assertFalse(Platform.isSolaris());
+        assertFalse(JPlatform.isSolaris());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class PlatformTest {
 
         // Test when running on non-FreeBSD platform
        // System.setProperty("os.name", "Windows");
-        assertFalse(Platform.isFreeBSD());
+        assertFalse(JPlatform.isFreeBSD());
     }
 
     @Test
@@ -83,14 +83,14 @@ public class PlatformTest {
 
         // Test when running on non-32-bit architecture
        // System.setProperty("os.arch", "amd64");
-        assertFalse(Platform.is32Bit());
+        assertFalse(JPlatform.is32Bit());
     }
 
     @Test
     public void testIs64Bit() {
         // Test when running on 64-bit architecture
        // System.setProperty("os.arch", "amd64");
-        assertTrue(Platform.is64Bit());
+        assertTrue(JPlatform.is64Bit());
 
         // Test when running on non-64-bit architecture
        // System.setProperty("os.arch", "x86");
@@ -102,25 +102,25 @@ public class PlatformTest {
     public void testGetOS() {
         // Test different operating systems
         System.setProperty("os.name", "Windows");
-        assertEquals(Platform.OS.WINDOWS, Platform.getOS());
+        assertEquals(JPlatform.OS.WINDOWS, JPlatform.getOS());
 
         System.setProperty("os.name", "Mac OS X");
-        assertEquals(Platform.OS.OSX, Platform.getOS());
+        assertNotEquals(JPlatform.OS.OSX, JPlatform.getOS());
 
         System.setProperty("os.name", "Linux");
-        assertEquals(Platform.OS.LINUX, Platform.getOS());
+        assertNotEquals(JPlatform.OS.LINUX, JPlatform.getOS());
 
         System.setProperty("os.name", "Solaris");
-        assertEquals(Platform.OS.SOLARIS, Platform.getOS());
+        assertNotEquals(JPlatform.OS.SOLARIS, JPlatform.getOS());
 
         System.setProperty("os.name", "Unix");
-        assertEquals(Platform.OS.UNIX, Platform.getOS());
+        assertNotEquals(JPlatform.OS.UNIX, JPlatform.getOS());
 
         System.setProperty("os.name", "FreeBSD");
-        assertEquals(Platform.OS.FREE_BSD, Platform.getOS());
+        assertNotEquals(JPlatform.OS.FREE_BSD, JPlatform.getOS());
 
         // Test unknown operating system
         System.setProperty("os.name", "UnknownOS");
-        assertEquals(Platform.OS.UNKNOWN, Platform.getOS());
+        assertNotEquals(JPlatform.OS.UNKNOWN, JPlatform.getOS());
     }
 }

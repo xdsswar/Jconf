@@ -4,7 +4,7 @@ package xss.it.conf;
  * @author XDSSWAR
  * Created on 05/15/2023
  */
-public final class Platform {
+public final class JPlatform {
     private static final String _OS = System.getProperty("os.name").toLowerCase();
     private static final String _ARCH = System.getProperty("os.arch");
 
