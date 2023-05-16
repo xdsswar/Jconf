@@ -232,7 +232,7 @@ public final class JConfig {
     /**
      * Save settings to file
      */
-    private void saveToFile() {
+    void saveToFile() {
         try (OutputStream outputStream = new FileOutputStream(filePath)) {
             properties.store(outputStream, "Application Settings");
         } catch (IOException e) {
@@ -243,7 +243,7 @@ public final class JConfig {
     /**
      * Load Settings from file
      */
-    private void loadFromFile() {
+    void loadFromFile() {
         try (InputStream inputStream = new FileInputStream(filePath)) {
             properties.load(inputStream);
         } catch (IOException e) {
@@ -308,7 +308,7 @@ public final class JConfig {
      * Check if the settings file exist
      * @return boolean
      */
-    private boolean exist(){
+    boolean exist(){
         return Files.exists(Paths.get(filePath));
     }
 }
