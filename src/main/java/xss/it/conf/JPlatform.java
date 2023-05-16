@@ -77,9 +77,6 @@ public final class JPlatform {
         WINDOWS,
         OSX,
         LINUX,
-        SOLARIS,
-        UNIX,
-        FREE_BSD,
         UNKNOWN
     }
 

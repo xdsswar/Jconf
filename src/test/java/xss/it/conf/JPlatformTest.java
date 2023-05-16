@@ -79,15 +79,6 @@ public class JPlatformTest {
         System.setProperty("os.name", "Linux");
         assertNotEquals(JPlatform.OS.LINUX, JPlatform.getOS());
 
-        System.setProperty("os.name", "Solaris");
-        assertNotEquals(JPlatform.OS.SOLARIS, JPlatform.getOS());
-
-        System.setProperty("os.name", "Unix");
-        assertNotEquals(JPlatform.OS.UNIX, JPlatform.getOS());
-
-        System.setProperty("os.name", "FreeBSD");
-        assertNotEquals(JPlatform.OS.FREE_BSD, JPlatform.getOS());
-
         // Test unknown operating system
         System.setProperty("os.name", "UnknownOS");
         assertNotEquals(JPlatform.OS.UNKNOWN, JPlatform.getOS());
