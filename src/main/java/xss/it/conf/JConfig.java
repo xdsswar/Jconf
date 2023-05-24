@@ -281,7 +281,10 @@ public final class JConfig {
      */
     public boolean isSet(String key){
         String v1=get(key);
-        String v2=getDecrypted(key);
+        String v2=null;
+        if (secretKey!=null){
+            v2= getDecrypted(key);
+        }
         return (v1!=null && !v1.isBlank() && !v1.isEmpty()) || (v2!=null && !v2.isBlank() && !v2.isEmpty());
     }
 
