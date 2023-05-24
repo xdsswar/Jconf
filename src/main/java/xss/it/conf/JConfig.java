@@ -273,7 +273,17 @@ public final class JConfig {
         return -1F;
     }
 
-
+    /**
+     * Checks if a value is set for the specified key.
+     *
+     * @param key The key to check.
+     * @return {@code true} if a value is set for the key, {@code false} otherwise.
+     */
+    public boolean isSet(String key){
+        String v1=get(key);
+        String v2=getDecrypted(key);
+        return (v1!=null && !v1.isBlank() && !v1.isEmpty()) || (v2!=null && !v2.isBlank() && !v2.isEmpty());
+    }
 
     /**
      * Get the value of a property as a boolean.
